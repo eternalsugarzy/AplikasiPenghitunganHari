@@ -10,6 +10,7 @@ import java.util.Date;
 import java.time.Year;
 import java.time.format.TextStyle;
 import java.util.Locale;
+import java.time.temporal.ChronoUnit;
 
 
 
@@ -60,12 +61,19 @@ public class PenghitunganHariFrame extends javax.swing.JFrame {
             }
         });
 
-        // Event listener untuk perubahan tanggal pada JCalendar
+        // Event listener untuk perubahan tanggal di tanggalAwalCalendar
         tanggalAwalCalendar.addPropertyChangeListener("calendar", evt -> {
             if (!isUpdating) {
-                updateSpinnerComboBoxFromCalendar();
+            updateSpinnerComboBoxFromCalendar();
+            hitungSelisihHari(); // Menghitung selisih hari setiap kali tanggal awal berubah
             }
         });
+
+        // Event listener untuk perubahan tanggal di tanggalAkhirCalendar
+        tanggalAkhirCalendar.addPropertyChangeListener("calendar", evt -> {
+            hitungSelisihHari(); // Menghitung selisih hari setiap kali tanggal akhir berubah
+        });
+
 
     }
     
@@ -153,6 +161,19 @@ private void updateSpinnerComboBoxFromCalendar() {
     isUpdating = false;
 }
 
+public void hitungSelisihHari() {
+    // Ambil tanggal awal dan tanggal akhir dari JCalendar
+    LocalDate tanggalAwal = tanggalAwalCalendar.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    LocalDate tanggalAkhir = tanggalAkhirCalendar.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+    // Hitung selisih hari
+    long selisihHari = ChronoUnit.DAYS.between(tanggalAwal, tanggalAkhir);
+
+    // Perbarui label selisih hari
+    selisihHariLabel.setText("Selisih Hari: " + selisihHari + " hari");
+}
+
+
 
 
 
@@ -177,6 +198,8 @@ private void updateSpinnerComboBoxFromCalendar() {
         hariTerakhirLabel = new javax.swing.JLabel();
         kabisatLabel = new javax.swing.JLabel();
         tahunSpinner = new javax.swing.JSpinner();
+        tanggalAkhirCalendar = new com.toedter.calendar.JCalendar();
+        selisihHariLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -275,6 +298,18 @@ private void updateSpinnerComboBoxFromCalendar() {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         jPanel1.add(tahunSpinner, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 2;
+        jPanel1.add(tanggalAkhirCalendar, gridBagConstraints);
+
+        selisihHariLabel.setText("Selisih Hari");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel1.add(selisihHariLabel, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -289,7 +324,7 @@ private void updateSpinnerComboBoxFromCalendar() {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -355,7 +390,9 @@ private void updateSpinnerComboBoxFromCalendar() {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel kabisatLabel;
+    private javax.swing.JLabel selisihHariLabel;
     private javax.swing.JSpinner tahunSpinner;
+    private com.toedter.calendar.JCalendar tanggalAkhirCalendar;
     private com.toedter.calendar.JCalendar tanggalAwalCalendar;
     // End of variables declaration//GEN-END:variables
 }
