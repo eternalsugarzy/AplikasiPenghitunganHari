@@ -200,6 +200,8 @@ public void hitungSelisihHari() {
         tahunSpinner = new javax.swing.JSpinner();
         tanggalAkhirCalendar = new com.toedter.calendar.JCalendar();
         selisihHariLabel = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -311,6 +313,18 @@ public void hitungSelisihHari() {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         jPanel1.add(selisihHariLabel, gridBagConstraints);
 
+        jLabel3.setText("Kalender 1");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        jPanel1.add(jLabel3, gridBagConstraints);
+
+        jLabel4.setText("Kalender 2");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        jPanel1.add(jLabel4, gridBagConstraints);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -388,6 +402,8 @@ public void hitungSelisihHari() {
     private javax.swing.JButton hitungButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel kabisatLabel;
     private javax.swing.JLabel selisihHariLabel;
